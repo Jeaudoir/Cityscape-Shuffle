@@ -26,7 +26,7 @@ Also works when...
 4. **Important:** Restart Cities: Skylines after first enabling the mod
 
 ### Manual Installation
-1. Download from [Releases](https://github.com/Jeaudoir/CityscapeShuffle/releases)
+1. Download from [Releases](https://github.com/Jeaudoir/Cityscape-Shuffle/releases)
 2. Extract to `%LOCALAPPDATA%\Colossal Order\Cities_Skylines\Addons\Mods\CityscapeShuffle\`
 3. Install Harmony 2.x from Steam Workshop
 4. Enable Cityscape Shuffle in Content Manager → Mods
