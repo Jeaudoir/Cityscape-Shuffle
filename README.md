@@ -92,7 +92,7 @@ Technically this "should" load background images from all your DLC -- I can't te
 
 ## Contributing and Support
 
-- **Bug reports:** [GitHub Issues](https://github.com/Jeaudoir/CityscapeShuffle/issues) (response times may be slow)
+- **Bug reports:** [GitHub Issues](https://github.com/Jeaudoir/Cityscape-Shuffle/issues) (response times may be slow)
 - **Feedback:** [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3571276458)
 - **Creator:** [Bilbo Fraggins](https://steamcommunity.com/id/xd00d/myworkshopfiles/?appid=255710)
 
