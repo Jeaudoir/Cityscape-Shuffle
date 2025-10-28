@@ -1,10 +1,10 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyVersion("1.2.0.0")]
+[assembly: AssemblyFileVersion("1.2.0.0")]
 [assembly: AssemblyTitle("Cityscape Shuffle")]
-[assembly: AssemblyDescription("Randomized loading screen backgrounds for Cities: Skylines")]
+[assembly: AssemblyDescription("Randomizes loading screen backgrounds, including images from all installed DLC. NOTE: requires restart.")]
 [assembly: AssemblyCompany("Jeaudoir")]
 [assembly: AssemblyProduct("Cities: Skylines Mod")]
 [assembly: AssemblyCopyright("Copyright (C) Jeaudoir 2025 - Released under MIT License")]
