@@ -4,7 +4,7 @@
 
 Sick of looking at the exact same backdrop every! single! time! you load a saved game?
 
-This mod randomly selects from all available background images already included in the game (including any DLC content you own). Just turn it on -- no custom files or detailed configuration needed.
+This mod randomly selects from all available background images already built into the game (including any DLC content you own). Just turn it on -- no custom files or detailed configuration needed.
 
 Rather than going "full random" (which is prone to repetition) we use a shuffle-without-replacement algorithm to ensure all backgrounds are shown before repeating the sequence. Result: the longest possible interval before any background repeats.
 
