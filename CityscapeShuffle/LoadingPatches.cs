@@ -11,9 +11,9 @@ namespace CityscapeShuffle
     [HarmonyPatch(typeof(LoadingAnimation))]
     public static class LoadingPatches
     {
-		// Harmony prefix patch: intercepts LoadingAnimation.SetImage() before it runs.
-		// Swaps the default loading screen material with a random background from our collection.
-		// Returns true to allow the original method to continue with our modified material.
+        // Harmony prefix patch: intercepts LoadingAnimation.SetImage() before it runs.
+        // Swaps the default loading screen material with a random background from our collection.
+        // Returns true to allow the original method to continue with our modified material.
         [HarmonyPatch("SetImage")]
         [HarmonyPrefix]
         public static bool SetImage_Prefix(Mesh mesh, ref Material material, float scale, bool showAnimation)
@@ -23,7 +23,7 @@ namespace CityscapeShuffle
             DebugHelper.Log($"[CityscapeShuffle] Scale: {scale}, ShowAnimation: {showAnimation}");
 
             // Only replace loading screen backgrounds, not intro logos:
-			// We identify loading screens by checking if the material name contains specific keywords.
+            // We identify loading screens by checking if the material name contains specific keywords.
             string materialName = material?.name ?? "";
             bool isLoadingBackground = materialName.Contains("Loading Image") || materialName.Contains("Background");
             
@@ -59,13 +59,13 @@ namespace CityscapeShuffle
                 DebugHelper.LogError($"[CityscapeShuffle] Exception in SetImage_Prefix: {ex}");
             }
 
-			// Return true to let the game's SetImage method continue normally with our swapped material.
-			// This ensures we don't interfere with the actual loading process.
-			return true;
+            // Return true to let the game's SetImage method continue normally with our swapped material.
+            // This ensures we don't interfere with the actual loading process.
+            return true;
         }
 
-		// Harmony postfix patch: runs after LoadingAnimation.OnDisable() completes.
-		// Cleans up materials to prevent memory leaks when transitioning out of loading screens.
+        // Harmony postfix patch: runs after LoadingAnimation.OnDisable() completes.
+        // Cleans up materials to prevent memory leaks when transitioning out of loading screens.
         [HarmonyPatch("OnDisable")]
         [HarmonyPostfix]
         public static void OnDisable_Postfix()
