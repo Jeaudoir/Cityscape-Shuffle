@@ -42,7 +42,7 @@
   <!-- Post-build events: auto-copies the newly-compiled mod (with timestamp) to game folder -->
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <PropertyGroup>
-      <ModVersion>1.1.0</ModVersion>
+      <ModVersion>1.2.0</ModVersion>
       <TimeStamp>$([System.DateTime]::Now.ToString("yyyyMMdd-HHmmss"))</TimeStamp>
       <!-- EDIT THIS PATH or create "CityscapeShuffle" subfolder on your drive -->
       <ModFolder>%USERPROFILE%\AppData\Local\Colossal Order\Cities_Skylines\Addons\Mods\CityscapeShuffle</ModFolder>
