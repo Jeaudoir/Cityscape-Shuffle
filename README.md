@@ -81,12 +81,17 @@ Brief technical overview for the curious:
 
 ## Known Issues
 
-None currently! If you encounter problems:
+**Red Fallback Screen Bug (v1.1.0):**
+A rare bug has been identified where the red fallback screen can occasionally appear when switching between game modes (e.g., returning from editors to main menu). This occurs because Unity sometimes destroys or nullifies background textures during mode transitions, and the mod randomly selects one of these null entries. The issue is cosmetic only and doesn't affect saves or gameplay. A fix is in development and will be released as v1.1.1 shortly.
+
+**DLC Background Support:**
+Technically this "should" load background images from all your DLC -- I can't test because I don't actually have any DLC myself! I've been waiting for someone on Steam Workshop to say "THIS DOESN'T WORK" but they haven't yet. If you have DLC, see that it works, and are willing to share your experience, please do so I can update this!
+
+**Reporting Issues:**
+If you encounter problems:
 1. Enable debug logging in mod settings
 2. Find `output_log.txt` in your game folder (\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\output_log.txt)
 3. Report issues on GitHub with your log file
-
-Technically this "should" load background images from all your DLC -- I can't test because I don't actually have any DLC myself! I've been waiting for someone on Steam Workshop to say "THIS DOESN'T WORK" but they haven't yet. If you have DLC, see that it works, and are willing to share your experience, please do so I can update this!
 
 ---
 
