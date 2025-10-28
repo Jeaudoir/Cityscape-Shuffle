@@ -4,9 +4,9 @@
 
 Sick of looking at the exact same backdrop every! single! time! you load a saved game?
 
-This mod randomly selects from all available background images already included in the game (including any DLC content you own).
+This mod randomly selects from all available background images already included in the game (including any DLC content you own). Just turn it on -- no custom files or detailed configuration needed.
 
-Just turn it on -- no custom files or detailed configuration needed.
+Rather than going "full random" (which is prone to repetition) we use a shuffle-without-replacement algorithm to ensure all backgrounds are shown before repeating the sequence. Result: the longest possible interval before any background repeats.
 
 Also works when...
 - starting a new game
@@ -60,7 +60,7 @@ Safe for existing saves. Can be enabled/disabled anytime without breaking anythi
 **Incompatible with:**
 - **Loading Screen Mod Revisited** - Both mods patch the same game methods and will conflict.
 
-If you need advanced loading features or customizable backgrounds, use [Loading Screen Mod Revisited](https://steamcommunity.com/sharedfiles/filedetails/?id=2858591409) instead. If you want a one-click solution that just works, use Cityscape Shuffle.
+If you need advanced loading features or customizable backgrounds, use [Loading Screen Mod Revisited](https://steamcommunity.com/sharedfiles/filedetails/?id=2858591409) instead. If you want a one-click solution that just works, use this mod!
 
 ---
 
@@ -73,7 +73,7 @@ Brief technical overview for the curious:
 1. **Mod.cs** - Entry point; installs Harmony patches on game startup and manages settings persistence
 2. **BackgroundPanelAccessor.cs** - Captures background images from the main menu using reflection (reads the game's internal list)
 3. **LoadingPatches.cs** - Intercepts loading screen display, gets a random background from RandomBackgroundProvider, and swaps it in
-4. **RandomBackgroundProvider.cs** - Selects random images and manages material lifecycle (creates and destroys them to prevent memory leaks)
+4. **RandomBackgroundProvider.cs** - Uses shuffle-without-replacement to cycle through all backgrounds before repeating, manages material lifecycle to prevent memory leaks
 5. **ModSettings.cs** - Persists configuration to XML file
 6. **DebugHelper.cs** - Optional logging utility
 
@@ -81,17 +81,12 @@ Brief technical overview for the curious:
 
 ## Known Issues
 
-**Red Fallback Screen Bug (v1.1.0):**
-A rare bug has been identified where the red fallback screen can occasionally appear when switching between game modes (e.g., returning from editors to main menu). This occurs because Unity sometimes destroys or nullifies background textures during mode transitions, and the mod randomly selects one of these null entries. The issue is cosmetic only and doesn't affect saves or gameplay. A fix is in development and will be released as v1.1.1 shortly.
-
-**DLC Background Support:**
-Technically this "should" load background images from all your DLC -- I can't test because I don't actually have any DLC myself! I've been waiting for someone on Steam Workshop to say "THIS DOESN'T WORK" but they haven't yet. If you have DLC, see that it works, and are willing to share your experience, please do so I can update this!
-
-**Reporting Issues:**
-If you encounter problems:
+None currently! If you encounter problems:
 1. Enable debug logging in mod settings
 2. Find `output_log.txt` in your game folder (\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\output_log.txt)
 3. Report issues on GitHub with your log file
+
+Technically this "should" load background images from all your DLC -- I can't test because I don't actually have any DLC myself! Over 200 subscribers and nobody's complained, so it probably works? If you have DLC and can confirm it does, please let me know so I can update this!
 
 ---
 
