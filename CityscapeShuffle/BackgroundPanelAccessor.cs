@@ -2,6 +2,7 @@ using HarmonyLib;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 
 namespace CityscapeShuffle
 {
@@ -14,14 +15,14 @@ namespace CityscapeShuffle
     [HarmonyPatch(typeof(BackgroundPanel))]
     public static class BackgroundPanelAccessor
     {
-		// Stores the list of background textures from the game's BackgroundPanel class (private m_Images field).
+        // Stores the list of background textures from the game's BackgroundPanel class (private m_Images field).
         private static List<Texture2D> availableBackgrounds = null;
-		
-		// Maximum number of texture names to log during initialization (prevents log spam)
-		private const int MAX_SAMPLE_LOG_COUNT = 5;
+        
+        // Maximum number of texture names to log during initialization (reduces log spam)
+        private const int MAX_SAMPLE_LOG_COUNT = 10;
 
-		// Harmony postfix patch: runs after BackgroundPanel.Awake() completes.
-		// Captures the game's background texture list for our mod to use.
+        // Harmony postfix patch: runs after BackgroundPanel.Awake() completes.
+        // Captures the game's background texture list for our mod to use.
         [HarmonyPatch("Awake")]
         [HarmonyPostfix]
         public static void Awake_Postfix(BackgroundPanel __instance)
@@ -30,30 +31,40 @@ namespace CityscapeShuffle
             
             try
             {
-				// Use reflection to access BackgroundPanel's private m_Images field.
-				// Reflection allows us to read private data that the game doesn't normally expose.
-				// m_Images contains the background textures used in the main menu slideshow.
+                // Use reflection to access BackgroundPanel's private m_Images field.
+                // Reflection allows us to read private data that the game doesn't normally expose.
+                // m_Images contains the background textures used in the main menu slideshow.
                 FieldInfo imageListField = typeof(BackgroundPanel).GetField("m_Images", 
                     BindingFlags.NonPublic | BindingFlags.Instance);
                 
                 if (imageListField != null)
                 {
-                    availableBackgrounds = (List<Texture2D>)imageListField.GetValue(__instance);
+                    List<Texture2D> rawList = (List<Texture2D>)imageListField.GetValue(__instance);
                     
-                    if (availableBackgrounds != null)
+                    if (rawList != null)
                     {
-                        DebugHelper.Log($"[CityscapeShuffle] Successfully accessed {availableBackgrounds.Count} background images!");
+                        // Filter out null textures to prevent red fallback screen
+                        availableBackgrounds = rawList.Where(tex => tex != null).ToList();
                         
-                        // Log the first few texture names as samples (to avoid cluttering the log file)
-						for (int i = 0; i < Mathf.Min(MAX_SAMPLE_LOG_COUNT, availableBackgrounds.Count); i++)
+                        if (availableBackgrounds.Count > 0)
                         {
-                            if (availableBackgrounds[i] != null)
+                            
+                            DebugHelper.Log($"[CityscapeShuffle] Successfully accessed {availableBackgrounds.Count} background images!");
+                            
+                            // Log the first few texture names as samples (to avoid cluttering the log file)
+                            for (int i = 0; i < Mathf.Min(MAX_SAMPLE_LOG_COUNT, availableBackgrounds.Count); i++)
                             {
-                                DebugHelper.Log($"[CityscapeShuffle] Sample image {i}: {availableBackgrounds[i].name} ({availableBackgrounds[i].width}x{availableBackgrounds[i].height})");
+                                if (availableBackgrounds[i] != null)
+                                {
+                                    DebugHelper.Log($"[CityscapeShuffle] Sample image {i}: {availableBackgrounds[i].name} ({availableBackgrounds[i].width}x{availableBackgrounds[i].height})");
+                                }
                             }
+                            DebugHelper.Log($"[CityscapeShuffle] Background images now available for loading screen replacement!");
                         }
-                        
-                        DebugHelper.Log($"[CityscapeShuffle] Background images now available for loading screen replacement!");
+                        else
+                        {
+                            DebugHelper.LogWarning("[CityscapeShuffle] All textures were null after filtering!");
+                        }
                     }
                     else
                     {
@@ -72,8 +83,8 @@ namespace CityscapeShuffle
         }
 
         // Returns a randomly selected background texture from the available collection.
-		// Returns null if no backgrounds have been collected yet (main menu hasn't loaded).
-		public static Texture2D GetRandomBackgroundTexture()
+        // Returns null if no backgrounds have been collected yet (main menu hasn't loaded).
+        public static Texture2D GetRandomBackgroundTexture()
         {
             if (availableBackgrounds != null && availableBackgrounds.Count > 0)
             {
@@ -89,10 +100,19 @@ namespace CityscapeShuffle
             return null;
         }
 
-		// Returns the number of available background textures (0 if not yet collected).
+        // Returns the number of available background textures (0 if not yet collected).
         public static int GetBackgroundCount()
         {
             return availableBackgrounds?.Count ?? 0;
+        }
+
+        /// <summary>
+        /// Returns the list of available background textures captured from the game.
+        /// Used by RandomBackgroundProvider to select backgrounds.
+        /// </summary>
+        public static List<Texture2D> GetAvailableBackgrounds()
+        {
+            return availableBackgrounds;
         }
     }
 }
