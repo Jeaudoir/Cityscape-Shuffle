@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## Version 1.2.0 - 2025-10-28
+
+### New Features
+- Improved variety: now cycles through all available images before repeating
+- Shuffle order is generated once per game session and repeats consistently
+- You'll see all backgrounds before any repeats within a session
+
+### Bug Fixes
+- Fixed rare red/black screen appearing when switching game modes
+- Corrected texture cleanup logic to prevent destroying game-owned textures
+- Added null-texture filtering to prevent selection errors
+
+### Technical
+- Implemented Fisher-Yates shuffle-without-replacement algorithm
+- Added timestamps to all debug log entries
+- Enhanced debug logging to show shuffle order and position tracking
+
+---
+
 ## Version 1.1.0 - 2025-10-27
 
 ### New Features
