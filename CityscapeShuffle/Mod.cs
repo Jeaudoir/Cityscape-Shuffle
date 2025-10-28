@@ -10,10 +10,10 @@ using UnityEngine;
 namespace CityscapeShuffle
 {
     /// <summary>
-	/// Main entry point for the Cityscape Shuffle mod.
-	/// Installs Harmony patches to intercept LoadingAnimation.SetImage() and swap loading screen backgrounds
-	/// with random images from the game's collection (collected later by BackgroundPanelAccessor at main menu).
-	/// </summary>
+    /// Main entry point for the Cityscape Shuffle mod.
+    /// Installs Harmony patches to intercept LoadingAnimation.SetImage() and swap loading screen backgrounds
+    /// with random images from the game's collection (collected later by BackgroundPanelAccessor at main menu).
+    /// </summary>
     public class Mod : IUserMod
     {
         public string Name => 
