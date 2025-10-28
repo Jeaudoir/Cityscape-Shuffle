@@ -1,9 +1,10 @@
 using UnityEngine;
+using System;
 
 namespace CityscapeShuffle
 {
     /// <summary>
-    /// Debug logging utility that respects the EnableDebugLogging flag.
+    /// Simple debug logging utility with a toggleable flag to control log output.
     /// </summary>
     public static class DebugHelper
     {
@@ -12,19 +13,23 @@ namespace CityscapeShuffle
         public static void Log(string message)
         {
             if (EnableDebugLogging)
-                Debug.Log(message);
+            {
+                Debug.Log($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] {message}");
+            }
         }
 
         public static void LogWarning(string message)
         {
             if (EnableDebugLogging)
-                Debug.LogWarning(message);
+            {
+                Debug.LogWarning($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] {message}");
+            }
         }
 
         public static void LogError(string message)
         {
-            // Always log errors regardless of debug setting
-            Debug.LogError(message);
+            // Errors are always logged regardless of debug setting
+            Debug.LogError($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] {message}");
         }
     }
 }
